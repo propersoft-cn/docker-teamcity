@@ -32,8 +32,8 @@ ENV PATH $PATH:$GRADLE_HOME/bin
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
-EXPOSE 80
+EXPOSE 8111
 
-VOLUME /var/lib/teamcity
+VOLUME $TEAMCITY_DATA_PATH
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

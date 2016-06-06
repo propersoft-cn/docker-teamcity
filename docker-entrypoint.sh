@@ -9,4 +9,6 @@ then
 fi
 
 echo "Starting teamcity..."
-exec /opt/TeamCity/bin/runAll.sh run
+cd /opt/TeamCity/bin
+./runAll.sh start
+tail -f ../logs/catalina.out
