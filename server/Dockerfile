@@ -14,6 +14,10 @@ RUN wget -qO- https://download.jetbrains.com/teamcity/TeamCity-$TEAMCITY_VERSION
 # Enable the correct Valve when running behind a proxy
 RUN sed -i -e "s/\.*<\/Host>.*$/<Valve className=\"org.apache.catalina.valves.RemoteIpValve\" protocolHeader=\"x-forwarded-proto\" \/><\/Host>/" /opt/TeamCity/conf/server.xml
 
+# Move ROOT to use custom context
+ENV TEAMCITY_CONTEXT teamcity
+RUN mv /opt/TeamCity/webapps/ROOT /opt/TeamCity/webapps/$TEAMCITY_CONTEXT
+
 # Install TeamCity.GitHub plugin
 WORKDIR $TEAMCITY_DATA_PATH/plugins
 RUN curl -sLO http://teamcity.jetbrains.com/guestAuth/repository/download/bt398/lastest.lastSuccessful/teamcity.github.zip
