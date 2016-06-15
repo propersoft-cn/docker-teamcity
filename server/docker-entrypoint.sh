@@ -8,5 +8,8 @@ then
     wget -P $TEAMCITY_DATA_PATH/lib/jdbc https://jdbc.postgresql.org/download/postgresql-9.3-1103.jdbc41.jar
 fi
 
+# Move ROOT to use custom context
+mv /opt/TeamCity/webapps/ROOT /opt/TeamCity/webapps/$TEAMCITY_CONTEXT
+
 echo "Starting teamcity..."
 exec /opt/TeamCity/bin/teamcity-server.sh run
