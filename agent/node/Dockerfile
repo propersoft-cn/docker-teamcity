@@ -14,7 +14,7 @@ ENV TEAMCITY_SERVER "http://teamcity:8111"
 ADD teamcity-agent.sh /teamcity-agent.sh
 
 RUN apt-get update \
- && apt-get install -y curl git unzip nodejs npm \
+ && apt-get install -y curl git unzip node npm ruby \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
  && mkdir -p $AGENT_DIR \
@@ -31,6 +31,7 @@ VOLUME $AGENT_DIR
 EXPOSE $TEAMCITY_AGENT_PORT
 
 RUN npm install -g bower grunt-cli
+RUN gem install sass compass
 
 ENV TEAMCITY_AGENT_NAME "NodeJS_Agent"
 
