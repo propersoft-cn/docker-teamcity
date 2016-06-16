@@ -15,9 +15,6 @@ RUN wget -qO- https://download.jetbrains.com/teamcity/TeamCity-$TEAMCITY_VERSION
 # Enable the correct Valve when running behind a proxy
 RUN sed -i -e "s/\.*<\/Host>.*$/<Valve className=\"org.apache.catalina.valves.RemoteIpValve\" protocolHeader=\"x-forwarded-proto\" \/><\/Host>/" /opt/TeamCity/conf/server.xml
 
-# Install TeamCity.GitHub plugin
-RUN curl --create-dirs -sLo $TEAMCITY_DATA_PATH/plugins/teamcity.github.zip http://teamcity.jetbrains.com/guestAuth/repository/download/bt398/lastest.lastSuccessful/teamcity.github.zip
-
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 EXPOSE 8111
