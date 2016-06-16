@@ -1,4 +1,4 @@
-FROM java:7
+FROM node:latest
 MAINTAINER Alpha Hinex <AlphaHinex@gmail.com>
 
 # Set time zone
@@ -14,7 +14,7 @@ ENV TEAMCITY_SERVER "http://teamcity:8111"
 ADD teamcity-agent.sh /teamcity-agent.sh
 
 RUN apt-get update \
- && apt-get install -y curl git unzip nodejs npm ruby ruby-dev \
+ && apt-get install -y curl git unzip openjdk-7-jdk ruby ruby-dev \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
  && mkdir -p $AGENT_DIR \
