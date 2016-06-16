@@ -15,5 +15,5 @@ $ docker run --name some-postgres -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -p 543
 $ docker run -it --link some-postgres:postgres --rm -e "SETUP_TEAMCITY_SQL=$SETUP_TEAMCITY_SQL" -e "PGPASSWORD=$POSTGRES_PASSWORD" postgres bash -c 'exec echo $SETUP_TEAMCITY_SQL |psql -h postgres -U postgres'
 
 # Linking TeamCity server to the postgres image
-$ docker run --name tc-server --link some-postgres:postgres -v /home/ds/teamcity:/var/lib/teamcity -p 9103:8111 -d propersoft/docker-teamcity:server
+$ docker run --name tc-server --link some-postgres:postgres -v /home/ds/teamcity:/var/lib/teamcity -p 9090:8111 -d propersoft/docker-teamcity:server
 ```
