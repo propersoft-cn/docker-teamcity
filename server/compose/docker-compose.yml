@@ -1,0 +1,17 @@
+postgres:
+  image: postgres
+  environment:
+    - POSTGRES_PASSWORD=pg4tc
+  volumes:
+    - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+teamcity:
+  image: propersoft/docker-teamcity:server
+  links: 
+    - postgres
+  volumes:
+    - /home/ds/teamcity/isj:/var/lib/teamcity
+  environment:
+    - TEAMCITY_CONTEXT=tc
+  ports:
+    - "8111:8111"
