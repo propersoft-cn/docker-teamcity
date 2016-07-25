@@ -30,7 +30,7 @@ VOLUME $AGENT_DIR
 
 EXPOSE $TEAMCITY_AGENT_PORT
 
-RUN npm install -g bower grunt-cli
+RUN npm install -g bower grunt-cli bower-nexus3-resolver
 RUN gem install sass compass
 
 ENV TEAMCITY_AGENT_NAME "NodeJS_Agent"

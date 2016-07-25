@@ -1,2 +1,2 @@
-create role teamcity_isj with login password 'teamcity_isj';
-create database teamcity_isj owner teamcity_isj;
+create role teamcity with login password 'teamcity';
+create database teamcity owner teamcity;
