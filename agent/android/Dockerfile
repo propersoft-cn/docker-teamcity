@@ -7,7 +7,7 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
 # Install nodejs and npm
-RUN apt-get update && apt-get install nodejs && apt-get install npm
+RUN apt-get update && apt-get install -y nodejs && apt-get -y install npm
 
 # Install java8
 RUN apt-get update && apt-get install -y software-properties-common && apt-get clean && rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
