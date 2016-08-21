@@ -1,6 +1,13 @@
 FROM ubuntu:16.04
 
-MAINTAINER Jacek Marchwicki "jacek.marchwicki@gmail.com"
+MAINTAINER Alpha Hinex <AlphaHinex@gmail.com>
+
+# Set time zone
+RUN echo "Asia/Shanghai" > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
+
+# Install nodejs and npm
+RUN apt-get update && apt-get install -y nodejs && apt-get -y install npm
 
 # Install java8
 RUN apt-get update && apt-get install -y software-properties-common && apt-get clean && rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -21,26 +28,41 @@ ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 # Install sdk elements
 COPY tools /opt/tools
 ENV PATH ${PATH}:/opt/tools
-# RUN ["/opt/tools/android-accept-licenses.sh", "android update sdk --all --no-ui --filter platform-tools"]
-# RUN ["/opt/tools/android-accept-licenses.sh", "android update sdk --all --no-ui --filter tools"]
 RUN ["/opt/tools/android-accept-licenses.sh", "android update sdk --all --no-ui --filter platform-tools,tools,build-tools-21,build-tools-21.0.1,build-tools-21.0.2,build-tools-21.1,build-tools-21.1.1,build-tools-21.1.2,build-tools-22,build-tools-22.0.1,build-tools-23.0.0,build-tools-23.0.3,android-21,android-22,android-23,android-24,addon-google_apis_x86-google-21,extra-android-support,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services,sys-img-armeabi-v7a-android-24"]
-
-RUN which adb
-RUN which android
-
-# Create emulator
-RUN echo "no" | android create avd \
-                --force \
-                --device "Nexus 5" \
-                --name test \
-                --target android-24 \
-                --abi armeabi-v7a \
-                --skin WVGA800 \
-                --sdcard 512M
 
 # Cleaning
 RUN apt-get clean
 
-# GO to workspace
-RUN mkdir -p /opt/workspace
-WORKDIR /opt/workspace
+# Environment variables, safe to change in container
+ENV AGENT_DIR /opt/buildAgent
+ENV AGENT_HOME /home/teamcity
+ENV TEAMCITY_AGENT_PORT 9090
+ENV TEAMCITY_SERVER "http://teamcity:8111"
+
+ADD teamcity-agent.sh /teamcity-agent.sh
+
+RUN apt-get update \
+ && apt-get install -y curl git unzip ruby ruby-dev \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* \
+ && mkdir -p $AGENT_DIR \
+ && addgroup --system --gid 990 teamcity \
+ && adduser --system --uid 990 --gid 990 --home $AGENT_HOME --shell /bin/false teamcity \
+ && chown teamcity:teamcity $AGENT_DIR \
+ && sed -i 's#%AGENT_DIR%#'$AGENT_DIR'#' /teamcity-agent.sh \
+ && chmod +x /teamcity-agent.sh
+
+WORKDIR $AGENT_DIR
+VOLUME $AGENT_HOME
+VOLUME $AGENT_DIR
+
+EXPOSE $TEAMCITY_AGENT_PORT
+
+RUN npm install -g bower grunt-cli bower-nexus3-resolver cordova ionic
+RUN gem install sass compass
+
+ENV TEAMCITY_AGENT_NAME "Android_Node_Agent"
+
+USER teamcity
+
+ENTRYPOINT ["/teamcity-agent.sh"]
