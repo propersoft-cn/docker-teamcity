@@ -63,7 +63,7 @@ EXPOSE $TEAMCITY_AGENT_PORT
 RUN npm install -g bower grunt-cli bower-nexus3-resolver cordova ionic
 RUN gem install sass compass
 
-ENV TEAMCITY_AGENT_NAME "Android_Agent"
+ENV TEAMCITY_AGENT_NAME "Android_Node_Agent"
 
 USER teamcity
 
