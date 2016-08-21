@@ -58,7 +58,11 @@ VOLUME $AGENT_DIR
 
 EXPOSE $TEAMCITY_AGENT_PORT
 
-RUN npm install -g bower grunt-cli bower-nexus3-resolver cordova ionic
+RUN npm install -g bower
+RUN npm install -g bower-nexus3-resolver
+RUN npm install -g grunt-cli
+RUN npm install -g cordova
+RUN npm install -g ionic
 RUN gem install sass compass
 
 ENV TEAMCITY_AGENT_NAME "Android_Node_Agent"
