@@ -11,9 +11,6 @@ ENV AGENT_HOME /home/teamcity
 ENV TEAMCITY_AGENT_PORT 9090
 ENV TEAMCITY_SERVER "http://teamcity:8111"
 
-COPY nexus/npmrc /root/.npmrc
-COPY nexus/bowerrc /root/.bowerrc
-
 ADD nexus/nexus-npm.sh /nexus-npm.sh
 ADD nexus/nexus-bower.sh /nexus-bower.sh
 
