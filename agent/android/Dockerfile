@@ -15,6 +15,18 @@ ENV AGENT_HOME /home/teamcity
 ENV TEAMCITY_AGENT_PORT 9090
 ENV TEAMCITY_SERVER "http://teamcity:8111"
 
+COPY nexus/npmrc /root/.npmrc
+COPY nexus/bowerrc /root/.bowerrc
+COPY nexus/gradle.properties /root/.gradle/gradle.properties
+
+ADD nexus/nexus-npm.sh /nexus-npm.sh
+ADD nexus/nexus-bower.sh /nexus-bower.sh
+ADD nexus/nexus-gradle.sh /nexus-gradle.sh
+
+RUN chmod +x /nexus-npm.sh
+RUN chmod +x /nexus-bower.sh
+RUN chmod +x /nexus-gradle.sh
+
 ADD teamcity-agent.sh /teamcity-agent.sh
 
 RUN apt-get update \

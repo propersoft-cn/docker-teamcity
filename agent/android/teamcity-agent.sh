@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+bash /nexus-npm.sh
+bash /nexus-bower.sh
+bash /nexus-gradle.sh
+
 if [ ! -d "%AGENT_DIR%/bin" ]; then
     echo "%AGENT_DIR% doesn't exist pulling build-agent from server $TEAMCITY_SERVER";
     let waiting=0

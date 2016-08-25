@@ -11,6 +11,12 @@ ENV AGENT_HOME /home/teamcity
 ENV TEAMCITY_AGENT_PORT 9090
 ENV TEAMCITY_SERVER "http://teamcity:8111"
 
+COPY nexus/gradle.properties /root/.gradle/gradle.properties
+
+ADD nexus/nexus-gradle.sh /nexus-gradle.sh
+
+RUN chmod +x /nexus-gradle.sh
+
 ADD teamcity-agent.sh /teamcity-agent.sh
 
 RUN apt-get update \

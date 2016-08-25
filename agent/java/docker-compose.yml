@@ -1,0 +1,11 @@
+mongo-pep:
+  image: mongo
+
+java-agent:
+  image: propersoft/docker-teamcity:agent-java
+  links:
+    - mongo-pep
+  environment:
+    - TEAMCITY_SERVER
+    - TEAMCITY_AGENT_NAME
+    - TEAMCITY_AGENT_PORT

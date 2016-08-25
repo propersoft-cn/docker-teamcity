@@ -1,0 +1,10 @@
+{
+  "registry" : {
+    "search" : [ "https://NEXUS_USER:NEXUS_PWD@server.propersoft.cn:8081/repository/bower-public" ]
+   },
+ "resolvers" : [ "bower-nexus3-resolver" ],
+  "nexus" : {
+    "username" : "NEXUS_USER",
+    "password" : "NEXUS_PWD"
+  }
+}
