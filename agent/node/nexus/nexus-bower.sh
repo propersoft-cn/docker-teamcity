@@ -8,6 +8,6 @@ echo '{
     "username" : "NEXUS_USER",
     "password" : "NEXUS_PWD"
   }
-}' > /root/.bowerrc
-sed -i "s/NEXUS_USER/$NEXUS_USER/g" /root/.bowerrc
-sed -i "s/NEXUS_PWD/$NEXUS_PWD/g" /root/.bowerrc
+}' > /home/teamcity/.bowerrc
+sed -i "s/NEXUS_USER/$NEXUS_USER/g" /home/teamcity/.bowerrc
+sed -i "s/NEXUS_PWD/$NEXUS_PWD/g" /home/teamcity/.bowerrc
