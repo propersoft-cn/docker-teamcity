@@ -3,10 +3,10 @@ mysql:
   volumes:
     - /home/ds/tc10/mysql/data:/var/lib/mysql
   environment:
-    - MYSQL_ROOT_PASSWORD=Proper123
-    - MYSQL_DATABASE=pep
-    - MYSQL_USER=pep
-    - MYSQL_PASSWORD=pep
+    - MYSQL_ROOT_PASSWORD=propersoft
+    - MYSQL_DATABASE=teamcity
+    - MYSQL_USER=teamcity
+    - MYSQL_PASSWORD=teamcity
   command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
 teamcity:

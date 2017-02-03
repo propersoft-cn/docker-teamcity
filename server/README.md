@@ -2,5 +2,5 @@ Propersoft TeamCity Server in Docker
 ====================================
 
 ```
-$ docker-compose up -d
+$ TEAMCITY_CONTEXT=teamcity docker-compose up -d
 ```
