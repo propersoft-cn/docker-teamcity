@@ -9,11 +9,11 @@ then
     curl -o $TEAMCITY_DATA_PATH/lib/jdbc/mysql-connector-java-5.1.40.jar https://repo.gradle.org/gradle/libs/mysql/mysql-connector-java/5.1.40/mysql-connector-java-5.1.40.jar
 fi
 
-if [ ! -f "$TEAMCITY_DATA_PATH/plugins/teamcity.github.zip" ];
-then
-    echo "Downloading TeamCity.GitHub plugin..."
-    curl -o $TEAMCITY_DATA_PATH/plugins/teamcity.github.zip http://teamcity.jetbrains.com/guestAuth/repository/download/bt398/lastest.lastSuccessful/teamcity.github.zip
-fi
+# if [ ! -f "$TEAMCITY_DATA_PATH/plugins/teamcity.github.zip" ];
+# then
+#     echo "Downloading TeamCity.GitHub plugin..."
+#     curl -o $TEAMCITY_DATA_PATH/plugins/teamcity.github.zip http://teamcity.jetbrains.com/guestAuth/repository/download/bt398/lastest.lastSuccessful/teamcity.github.zip
+# fi
 
 if [ -d "/opt/teamcity/webapps/ROOT" ];
 then
