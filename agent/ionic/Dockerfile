@@ -38,6 +38,67 @@ RUN which android
 # Cleaning
 RUN apt-get clean
 
-# GO to workspace
-RUN mkdir -p /opt/workspace
-WORKDIR /opt/workspace
+# Set time zone
+RUN echo "Asia/Shanghai" > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
+
+# Install nodejs and npm
+RUN apt-get update && apt-get install -y nodejs && apt-get -y install npm
+
+# Environment variables, safe to change in container
+ENV AGENT_DIR /opt/buildAgent
+ENV AGENT_HOME /home/teamcity
+ENV TEAMCITY_AGENT_PORT 9090
+ENV TEAMCITY_SERVER "http://teamcity:8111"
+
+ADD nexus/nexus-npm.sh /nexus-npm.sh
+ADD nexus/nexus-bower.sh /nexus-bower.sh
+ADD nexus/nexus-gradle.sh /nexus-gradle.sh
+
+RUN chmod +x /nexus-npm.sh
+RUN chmod +x /nexus-bower.sh
+RUN chmod +x /nexus-gradle.sh
+
+ADD teamcity-agent.sh /teamcity-agent.sh
+
+RUN apt-get update \
+ && apt-get install -y curl git unzip ruby ruby-dev \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* \
+ && mkdir -p $AGENT_DIR \
+ && addgroup --system --gid 990 teamcity \
+ && adduser --system --uid 990 --gid 990 --home $AGENT_HOME --shell /bin/false teamcity \
+ && chown teamcity:teamcity $AGENT_DIR \
+ && sed -i 's#%AGENT_DIR%#'$AGENT_DIR'#' /teamcity-agent.sh \
+ && chmod +x /teamcity-agent.sh
+
+# Install gradle
+ENV GRADLE_VERSION 2.13
+
+WORKDIR /usr/bin
+RUN curl -sLO https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip && \
+  unzip gradle-${GRADLE_VERSION}-all.zip && \
+  ln -s gradle-${GRADLE_VERSION} gradle && \
+  rm gradle-${GRADLE_VERSION}-all.zip
+
+ENV GRADLE_HOME /usr/bin/gradle
+ENV PATH $PATH:$GRADLE_HOME/bin
+
+WORKDIR $AGENT_DIR
+VOLUME $AGENT_HOME
+VOLUME $AGENT_DIR
+
+EXPOSE $TEAMCITY_AGENT_PORT
+
+RUN npm install -g bower
+RUN npm install -g bower-nexus3-resolver
+RUN npm install -g grunt-cli
+RUN npm install -g cordova
+RUN npm install -g ionic
+RUN gem install sass compass
+
+ENV TEAMCITY_AGENT_NAME "Ionic_Agent"
+
+USER teamcity
+
+ENTRYPOINT ["/teamcity-agent.sh"]
