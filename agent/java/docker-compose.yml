@@ -1,11 +1,18 @@
 mongo-pep:
   image: mongo
 
+redis-pep:
+  image: redis
+  command: redis-server --appendonly yes
+
 java-agent:
   image: propersoft/docker-teamcity:agent-java
   links:
     - mongo-pep
+    - redis-pep
   environment:
     - TEAMCITY_SERVER
     - TEAMCITY_AGENT_NAME
     - TEAMCITY_AGENT_PORT
+    - NEXUS_USER
+    - NEXUS_PWD

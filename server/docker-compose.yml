@@ -1,0 +1,30 @@
+mysql:
+  image: mysql:5.7.17
+  volumes:
+    - /home/ds/tc10/mysql/data:/var/lib/mysql
+    - ./configs/my.cnf:/etc/mysql/conf.d/my.cnf
+  environment:
+    - MYSQL_ROOT_PASSWORD=propersoft
+    - MYSQL_DATABASE=teamcity
+    - MYSQL_USER=teamcity
+    - MYSQL_PASSWORD=teamcity
+  # ports:
+  #   - "3306:3306"
+
+teamcity:
+  image: jetbrains/teamcity-server:10.0.4
+  links: 
+    - mysql
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /home/ds/tc10/teamcity/data:/data/teamcity_server/datadir
+    - /home/ds/tc10/teamcity/logs:/opt/teamcity/logs
+    - ./configs/server.xml:/opt/teamcity/conf/server.xml
+    - ./entrypoint.sh:/entrypoint.sh
+  environment:
+    - TEAMCITY_CONTEXT=teamcity
+    - TEAMCITY_DATA_PATH=/data/teamcity_server/datadir
+    - TEAMCITY_SERVER_MEM_OPTS=-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m
+  entrypoint: /entrypoint.sh
+  # ports:
+  #   - "8111:8111"
