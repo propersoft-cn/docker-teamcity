@@ -43,7 +43,7 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
 # Install nodejs and npm
-RUN apt-get update && apt-get install -y nodejs && apt-get -y install npm
+RUN apt-get update && apt-get install -y nodejs && apt-get install -y nodejs-legacy && apt-get -y install npm
 
 # Environment variables, safe to change in container
 ENV AGENT_DIR /opt/buildAgent
@@ -95,6 +95,7 @@ RUN npm install -g bower-nexus3-resolver
 RUN npm install -g grunt-cli
 RUN npm install -g cordova
 RUN npm install -g ionic
+RUN npm install -g cordova-hot-code-push-cli
 RUN gem install sass compass
 
 ENV TEAMCITY_AGENT_NAME "Ionic_Agent"
