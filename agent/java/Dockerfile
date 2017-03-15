@@ -1,4 +1,4 @@
-FROM java:7
+FROM java:8
 MAINTAINER Alpha Hinex <AlphaHinex@gmail.com>
 
 # Set time zone
