@@ -43,7 +43,8 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
 # Install nodejs and npm
-RUN apt-get update && apt-get install -y nodejs && apt-get install -y nodejs-legacy && apt-get -y install npm
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+RUN apt-get install -y nodejs build-essential
 
 # Environment variables, safe to change in container
 ENV AGENT_DIR /opt/buildAgent
