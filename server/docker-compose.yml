@@ -12,7 +12,7 @@ mysql:
   #   - "3306:3306"
 
 teamcity:
-  image: jetbrains/teamcity-server:10.0.5
+  image: jetbrains/teamcity-server:2017.1.2
   links: 
     - mysql
   volumes:
