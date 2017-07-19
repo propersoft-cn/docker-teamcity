@@ -28,3 +28,19 @@ teamcity:
   entrypoint: /entrypoint.sh
   # ports:
   #   - "8111:8111"
+
+teamcity2:
+  image: jetbrains/teamcity-server:2017.1.2
+  links:
+    - mysql
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /home/ds/teamcity2/teamcity/data:/data/teamcity_server/datadir
+    - /home/ds/teamcity2/teamcity/logs:/opt/teamcity/logs
+    - ./configs2/server.xml:/opt/teamcity/conf/server.xml
+    - ./configs2/entrypoint.sh:/entrypoint.sh
+  environment:
+    - TEAMCITY_CONTEXT=teamcity2
+    - TEAMCITY_DATA_PATH=/data/teamcity_server/datadir
+    - TEAMCITY_SERVER_MEM_OPTS=-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m
+  entrypoint: /entrypoint.sh
