@@ -19,9 +19,9 @@ $ docker-compose up -d
 
 需要在原有的MySQL实例里面创建新的数据库，并且原有数据库账号要有新数据库的读写权限，在第一次访问teamcity应用服务时需填写连接新建数据库信息：**用户名、密码、MySQL host地址、新数据库名称** 即可。 
 
-**例如：1、在原有MySQL实例里面新增tc-sjh数据库，执行：**
+**例如：1、在原有MySQL实例里面新增 teamcity2 数据库，执行：**
 ```
-mysql -h172.18.0.6 -uxxx -pxxx -e 'CREATE DATABASE `tc-sjh` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */'
+mysql -h172.18.0.6 -uxxx -pxxx -e 'CREATE DATABASE `teamcity2` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */'
 ```
 
 **2、访问teamcity应用服务填写连接数据库信息**
