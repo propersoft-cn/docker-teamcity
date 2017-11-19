@@ -74,7 +74,7 @@ RUN apt-get update \
  && chmod +x /teamcity-agent.sh
 
 # Install gradle
-ENV GRADLE_VERSION 2.13
+ENV GRADLE_VERSION 3.3
 
 WORKDIR /usr/bin
 RUN curl -sLO https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip && \

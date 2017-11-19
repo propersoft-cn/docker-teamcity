@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 echo '{
   "registry" : {
-    "search" : [ "https://NEXUS_USER:NEXUS_PWD@server.propersoft.cn:8081/repository/bower-public" ]
+    "search" : [ "http://NEXUS_USER:NEXUS_PWD@nexus.propersoft.cn:8081/repository/bower-public" ]
    },
  "resolvers" : [ "bower-nexus3-resolver" ],
   "nexus" : {
