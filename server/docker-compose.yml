@@ -4,10 +4,10 @@ mysql:
     - /home/ds/tc10/mysql/data:/var/lib/mysql
     - ./configs/my.cnf:/etc/mysql/conf.d/my.cnf
   environment:
-    - MYSQL_ROOT_PASSWORD=tc10PS
-    - MYSQL_DATABASE=tc10
-    - MYSQL_USER=tc10
-    - MYSQL_PASSWORD=tc10
+    - MYSQL_ROOT_PASSWORD=teamcity
+    - MYSQL_DATABASE=teamcity
+    - MYSQL_USER=teamcity
+    - MYSQL_PASSWORD=teamcity
 
 teamcity:
   image: jetbrains/teamcity-server:2017.2.2
