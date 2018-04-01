@@ -24,3 +24,37 @@ teamcity:
     - TEAMCITY_DATA_PATH=/data/teamcity_server/datadir
     - TEAMCITY_SERVER_MEM_OPTS=-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m
   entrypoint: /entrypoint.sh
+
+teamcity_icmp:
+  image: jetbrains/teamcity-server:2017.2.2
+  links:
+    - mysql
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /home/ds/teamcity_icmp/teamcity/data:/data/teamcity_server/datadir
+    - /home/ds/teamcity_icmp/teamcity/logs:/opt/teamcity/logs
+    - ./configs_icmp/server.xml:/opt/teamcity/conf/server.xml
+    - ./configs_icmp/entrypoint.sh:/entrypoint.sh
+  environment:
+    - TEAMCITY_CONTEXT=tc-icmp
+    - TEAMCITY_DATA_PATH=/data/teamcity_server/datadir
+    - TEAMCITY_SERVER_MEM_OPTS=-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m
+  entrypoint: /entrypoint.sh
+
+
+teamcity_ihos:
+  image: jetbrains/teamcity-server:2017.2.2
+  links:
+    - mysql
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /home/ds/teamcity_ihos/teamcity/data:/data/teamcity_server/datadir
+    - /home/ds/teamcity_ihos/teamcity/logs:/opt/teamcity/logs
+    - ./configs_ihos/server.xml:/opt/teamcity/conf/server.xml
+    - ./configs_ihos/entrypoint.sh:/entrypoint.sh
+  environment:
+    - TEAMCITY_CONTEXT=tc-ihos
+    - TEAMCITY_DATA_PATH=/data/teamcity_server/datadir
+    - TEAMCITY_SERVER_MEM_OPTS=-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m
+  entrypoint: /entrypoint.sh
+  
