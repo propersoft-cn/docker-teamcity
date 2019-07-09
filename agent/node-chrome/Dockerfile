@@ -38,9 +38,11 @@ VOLUME $AGENT_DIR
 ADD google-chrome-stable_current_amd64.deb /google-chrome-stable_current_amd64.deb 
 RUN apt-get update
 ADD chromedriver /chromedriver
-RUN cp /chromedriver /usr/bin/ \
+RUN chmod a+x /chromedriver \
+  && cp /chromedriver /usr/bin/ \
   && cp /chromedriver /usr/local/bin/ \
   && rm -rf /opt/google/chrome/google-chrome
+
 
 ADD google-chrome /opt/google/chrome/google-chrome
 RUN chmod +x /opt/google/chrome/google-chrome
