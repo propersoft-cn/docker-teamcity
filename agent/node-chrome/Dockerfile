@@ -30,12 +30,8 @@ RUN apt-get update \
  && sed -i 's#%AGENT_DIR%#'$AGENT_DIR'#' /teamcity-agent.sh \
  && chmod +x /teamcity-agent.sh
 
-
-WORKDIR $AGENT_DIR
-VOLUME $AGENT_HOME
-VOLUME $AGENT_DIR
-
 ADD google-chrome-stable_current_amd64.deb /google-chrome-stable_current_amd64.deb 
+RUN dpkg -i /google-chrome-stable_current_amd64.deb 
 RUN apt-get update
 ADD chromedriver /chromedriver
 RUN chmod a+x /chromedriver \
@@ -43,10 +39,12 @@ RUN chmod a+x /chromedriver \
   && cp /chromedriver /usr/local/bin/ \
   && rm -rf /opt/google/chrome/google-chrome
 
-
 ADD google-chrome /opt/google/chrome/google-chrome
 RUN chmod +x /opt/google/chrome/google-chrome
 
+WORKDIR $AGENT_DIR
+VOLUME $AGENT_HOME
+VOLUME $AGENT_DIR
 
 EXPOSE $TEAMCITY_AGENT_PORT
 
@@ -58,4 +56,3 @@ ENV TEAMCITY_AGENT_NAME "NodeJS_Agent"
 USER teamcity
 
 ENTRYPOINT ["/teamcity-agent.sh"]
-
